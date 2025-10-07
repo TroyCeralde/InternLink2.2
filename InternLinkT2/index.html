@@ -7,26 +7,60 @@
 		<link rel="stylesheet" href="css/Style.css" />
 	</head>
 	<body>
-		<div class="MainContainer">
-			<div class="logo">
-				<img src="logo/logoInternLink.png" alt="InternLink Logo" />
-			</div>
-			<br />
-			<h1 class="Welcome">Welcome to InternLink</h1>
+    <!-- /// jasen add: full-screen loader overlay with circular ring + logo -->
+    <div id="app-loader" aria-hidden="false" class="app-loader">
+        <div class="loader-card" role="status" aria-live="polite">
+            <div class="loader-logo">
+                <img src="logo/logoInternLink.png" alt="InternLink logo loading" /> <!-- /// jasen add -->
+            </div>
+            <div class="loader-text">Loading InternLink</div> <!-- /// jasen add -->
+            <div class="loader-ring" aria-hidden="true" role="img" aria-label="Loading progress">
+                <svg class="ring-svg" viewBox="0 0 100 100" width="92" height="92" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#1ddde8" />
+                            <stop offset="100%" stop-color="#22f0a7" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="ring-bg" cx="50" cy="50" r="44" fill="none"></circle>
+                    <circle class="ring-fg" cx="50" cy="50" r="44" fill="none" stroke="url(#g1)" stroke-dasharray="276.46" stroke-dashoffset="276.46"></circle>
+                </svg>
+                <div class="ring-percent" id="loader-percent">0%</div>
+            </div>
+        </div>
+    </div>
+    <!-- /// jasen add end -->
 
-			<p class="subheading">
-				Find internships, connect with employers, and grow your career.
-			</p>
-			<div class="buttcon">
-				<button class="log" onclick="window.location.href='loginform.html'">
-					Login
-				</button>
-				<button
-					class="reg"
-					onclick="window.location.href='registerform.html'">
-					Register
-				</button>
-			</div>
-		</div>
-	</body>
+    <div class="MainContainer">
+        <div class="logo">
+            <img src="logo/logoInternLink.png" alt="InternLink Logo" />
+        </div>
+        <br />
+        <h1 class="Welcome">Welcome to InternLink</h1>
+
+        <p class="subheading">
+            Find internships, connect with employers, and grow your career.
+        </p>
+        <div class="buttcon">
+            <!-- /// jasen add: use data-href so loader.js can intercept click and show loader -->
+            <button class="log" data-href="loginform.html">Login</button> <!-- /// jasen add -->
+            <button class="reg" data-href="registerform.html">Register</button> <!-- /// jasen add -->
+        </div>
+    </div>
+
+    <!-- /// jasen add: small helper so entrance animations run after paint -->
+    <script>
+        // /// jasen add
+        (function () {
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    document.body.classList.add("page-loaded");
+                }, 60);
+            });
+        })();
+    </script>
+
+    <!-- /// jasen add: loader behavior -->
+    <script src="js/loader.js"></script>
+</body>
 </html>

@@ -172,6 +172,122 @@ button {
 	opacity: 0.9; /* Slightly fades the button on hover */
 }
 
+/* /// jasen add: loader overlay styles (circular, smooth, pleasant) */
+.app-loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(2, 8, 12, 0.66), rgba(2, 8, 12, 0.80));
+    backdrop-filter: blur(6px) saturate(115%);
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 420ms ease, transform 420ms ease;
+}
+
+/* loader card */
+.loader-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding: 18px 22px;
+    border-radius: 14px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+    width: min(420px, 90%);
+    max-width: 420px;
+    text-align: center;
+    color: #e6fff9;
+    position: relative; /* for glow pseudo */
+    overflow: visible;
+}
+
+/* subtle ambient glow */
+.loader-card::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    filter: blur(18px);
+    opacity: 0.06;
+    background: radial-gradient(circle at 30% 30%, rgba(29,221,232,0.18), transparent 22%), radial-gradient(circle at 70% 70%, rgba(34,240,167,0.12), transparent 22%);
+    z-index: -1;
+}
+
+/* logo inside loader */
+.loader-logo {
+    width: 84px;
+    height: 84px;
+    margin: 2px auto 8px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: rgba(255,255,255,0.02);
+    box-shadow: inset 0 -6px 18px rgba(0,0,0,0.06);
+}
+.loader-logo img {
+    width: 84%;
+    height: 84%;
+    object-fit: contain;
+    transition: transform 300ms cubic-bezier(.2,.9,.2,1), filter 300ms ease;
+}
+
+/* ring visuals */
+.loader-ring { position: relative; width: 92px; height: 92px; margin: 6px auto 0; display: grid; place-items: center; }
+.ring-svg { transform: rotate(-90deg); width:92px; height:92px; }
+.ring-bg { stroke: rgba(255,255,255,0.06); stroke-width: 8; }
+.ring-fg { stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 180ms linear; filter: drop-shadow(0 8px 28px rgba(29,221,232,0.06)); }
+.ring-percent { position: absolute; font-size: 13px; font-weight: 700; color: #f0fffb; pointer-events: none; }
+
+.loader-text { font-size: 14px; color: #dff5f2; margin-bottom: 6px; font-weight: 600; }
+
+/* richer motion classes added by JS */
+.ring-rotate { animation: ringSpin 2600ms linear infinite; transform-origin: 50% 50%; }
+.logo-entrance { animation: logoPopIn 540ms cubic-bezier(.2,.9,.24,1) both; }
+.logo-finish { animation: logoPulse 420ms ease both; }
+.loader-card.finish-bounce { animation: cardBounce 380ms cubic-bezier(.22,1.2,.36,1) both; }
+.loader-active .loader-card::after { animation: glowPulse 2000ms ease-in-out infinite; }
+
+/* ensure loader card is above pseudo glow */
+.loader-card { position: relative; z-index: 2; }
+
+/* entrance & page animations for main page */
+.buttcon button {
+    opacity: 0;
+    transform: translateY(12px) scale(0.995);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.page-loaded .buttcon button {
+    animation: buttonIn 520ms cubic-bezier(.2,.9,.2,1) both;
+}
+.page-loaded .buttcon button:nth-child(1) { animation-delay: 180ms; }
+.page-loaded .buttcon button:nth-child(2) { animation-delay: 320ms; }
+.buttcon button:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 28px rgba(17,45,50,0.12); }
+
+/* logo gentle sway on welcome page */
+.logo img { animation: logoSway 4200ms ease-in-out infinite; transform-origin: 50% 50%; }
+
+/* subtle title pop */
+.Welcome { animation: titlePop 640ms cubic-bezier(.2,.9,.2,1) both; }
+
+/* keyframes */
+@keyframes buttonIn { from { opacity: 0; transform: translateY(12px) scale(.995); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes logoSway { 0% { transform: rotate(-1.2deg) scale(1); } 50% { transform: rotate(1.2deg) scale(1.01); } 100% { transform: rotate(-1.2deg) scale(1); } }
+@keyframes titlePop { 0% { opacity: 0; transform: translateY(6px) scale(.997); } 60% { opacity: 1; transform: translateY(-2px) scale(1.006); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+
+@keyframes ringSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes logoPopIn { 0% { transform: translateY(6px) scale(.86); opacity: 0; } 60% { transform: translateY(-6px) scale(1.06); opacity: 1; } 100% { transform: translateY(0) scale(1); } }
+@keyframes logoPulse { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
+@keyframes cardBounce { 0% { transform: translateY(0) scale(1); } 40% { transform: translateY(-8px) scale(1.01); } 100% { transform: translateY(0) scale(1); } }
+@keyframes glowPulse { 0% { opacity: 0.06; transform: scale(0.98); } 50% { opacity: 0.11; transform: scale(1.03); } 100% { opacity: 0.06; transform: scale(0.98); } }
+
+/* /// jasen add end */
+
 /* Responsive adjustments for screens smaller than 600px */
 @media (max-width: 600px) {
 	.MainContainer {
