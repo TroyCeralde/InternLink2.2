@@ -1,0 +1,205 @@
+/* Universal selector to apply base styles to all elements */
+* {
+	font-family: "Segoe UI", Arial, sans-serif; /* Sets a clean, modern font */
+	margin: 0; /* Removes default margin */
+	padding: 0; /* Removes default padding */
+	box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+/* Styles for the main body of the page */
+body {
+	background: linear-gradient(
+		135deg,
+		#001c2ce5 30%,
+		#384f5c 50%,
+		#001e20 100%
+	); /* background color*/
+	color: white; /* Sets the default text color to white */
+	min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
+	/* Flexbox centering removed to allow for absolute positioning of the container below */
+	text-align: center; /* Centers text within elements */
+}
+
+/* The main container for all page content */
+.MainContainer {
+	display: flex; /* Uses flexbox for layout */
+	flex-direction: column; /* Stacks child elements vertically */
+	align-items: center; /* Centers child elements horizontally */
+	gap: 20px; /* Adds space between child elements */
+	width: 90%; /* Sets a responsive width for the container */
+	max-width: 600px; /* Sets a maximum width to prevent it from being too wide on large screens */
+
+	/* --- ADJUST THE CONTAINER POSITION HERE --- */
+	position: absolute; /* This is required to manually position the container */
+	top: 35%; /* Adjust this percentage to move the container up or down */
+	left: 50%; /* Adjust this percentage to move the container left or right */
+	transform: translate(
+		-50%,
+		-50%
+	); /* This centers the container on the top/left coordinates. It's best to leave this unchanged. */
+}
+
+/* The main "Welcome" heading */
+.Welcome {
+	font-size: 48px; /* Sets a large font size */
+	font-weight: 900; /* Makes the font bold */
+	background: rgba(
+		104,
+		104,
+		104,
+		0
+	); /* Darker semi-transparent background to match the image */
+	backdrop-filter: blur(5px); /* Blurs the content behind the element */
+	box-shadow: rgba(0, 0, 0, 0.192) 0px 0px 10px; /* Adds a subtle shadow for depth */
+	padding: 10px 30px; /* Adds padding inside the heading */
+	border-radius: 15px; /* Reduced border-radius to match the image's corners */
+	position: relative; /* Required for positioning the shine pseudo-element */
+	overflow: hidden; /* Hides the shine element when it's outside the boundaries */
+	-webkit-backdrop-filter: blur(
+		100px
+	); /* Safari browser support for backdrop-filter */
+}
+
+/* Creates the shine element that will animate on hover */
+.Welcome::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -150%; /* Starts off-screen to the left */
+	width: 75%;
+	height: 100%;
+	background: linear-gradient(
+		to right,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0.2) 50%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	transform: skewX(-25deg); /* Angles the shine element */
+	transition: left 0.75s ease-in-out; /* Smooth transition for the animation */
+}
+
+/* Triggers the shine animation on hover */
+.Welcome:hover::before {
+	left: 150%; /* Moves the shine element across and off-screen to the right */
+}
+
+/* The subheading text below the main title */
+.subheading {
+	font-size: 18px; /* Sets the font size for the subheading */
+	color: #ccc; /* A lighter gray color for secondary text */
+	margin-top: 1px; /* Adjusts spacing to bring it closer to the title */
+	margin-bottom: 20px; /* Adds space below the subheading */
+	border: #112d32 1px solid;
+	border-radius: 8px;
+	padding: 7px;
+	background: rgba(
+		0,
+		0,
+		0,
+		0.1
+	); /* Semi-transparent background to improve readability */
+}
+
+/* Container for the logo image */
+.logo {
+	width: 130px; /* Sets the width of the logo container */
+	height: 130px; /* Sets the height of the logo container */
+	border-radius: 50%; /* Makes the container a perfect circle */
+	background: white; /* Added white background to match the image */
+	/* border: 2px solid white; */ /* Removed border */
+	overflow: hidden; /* Hides any part of the image that goes outside the circular container */
+	display: flex; /* Uses flexbox for centering the image inside */
+	align-items: center;
+	justify-content: center;
+	padding: 15px; /* Adds padding to shrink the logo inside the circle */
+}
+
+/* The logo image itself */
+.logo img {
+	width: 170%; /* Makes the image fill the container's width */
+	height: 160%; /* Makes the image fill the container's height */
+	object-fit: contain; /* Ensures the entire logo is visible inside the padding area */
+	display: block; /* Removes any extra space below the image */
+}
+
+/* Container for the Login and Register buttons */
+.buttcon {
+	display: flex; /* Arranges buttons in a row */
+	gap: 20px; /* Adds space between the buttons */
+}
+
+/* General styles for all buttons */
+button {
+	width: 120px; /* Sets a fixed width */
+	height: 45px; /* Sets a fixed height */
+	font-size: 16px; /* Sets the text size */
+	font-weight: 600; /* Makes the text semi-bold */
+	color: white; /* Sets the text color */
+	border-radius: 10px; /* Adds rounded corners */
+	border: none; /* Removes the default border */
+	cursor: pointer; /* Changes the cursor to a pointer on hover */
+	transition: all 0.3s ease; /* Adds a smooth transition for hover effects */
+}
+
+/* Specific styles for the Login button */
+.log {
+	background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+}
+
+/* Hover effect for the Login button */
+.log:hover {
+	background-color: rgba(
+		255,
+		255,
+		255,
+		0.2
+	); /* Slightly more opaque on hover */
+}
+
+/* Specific styles for the Register button */
+.reg {
+	background: linear-gradient(
+		to right,
+		#1ddde8,
+		#22f0a7
+	); /* Bright gradient background */
+	color: #112d32; /* Dark text color for contrast */
+	font-weight: 700; /* Bolder text */
+}
+
+/* Hover effect for the Register button */
+.reg:hover {
+	opacity: 0.9; /* Slightly fades the button on hover */
+}
+
+/* Responsive adjustments for screens smaller than 600px */
+@media (max-width: 600px) {
+	.MainContainer {
+		width: 90%; /* Makes the container take up more screen width */
+		padding: 0 20px; /* Adds horizontal padding */
+	}
+	.Welcome {
+		font-size: 36px; /* Reduces font size for the heading */
+	}
+	.subheading {
+		font-size: 16px; /* Reduces font size for the subheading */
+	}
+	.buttcon {
+		flex-direction: column; /* Stacks the buttons vertically */
+		width: 100%; /* Makes the button container full-width */
+		max-width: 300px; /* Limits the maximum width of the buttons */
+	}
+	button {
+		width: 100%; /* Makes buttons take the full width of their container */
+	}
+}
+
+/* Responsive adjustments for screens smaller than 400px */
+@media (max-width: 400px) {
+	.Welcome {
+		font-size: 28px; /* Further reduces heading font size */
+	}
+	.subheading {
+		font-size: 14px; /* Further reduces subheading font size */
+	}
+}
